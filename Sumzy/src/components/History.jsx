@@ -3,19 +3,42 @@ import { exportHistoryAsTxt, exportHistoryAsCsv } from '../utils/exportHelpers'
 
 export default function History({ items, onSelect }) {
   return (
-    <div className="p-2 rounded-lg bg-gray-100 dark:bg-neutral-700 h-64 overflow-y-auto">
-      <div className="flex justify-between items-center mb-2">
-        <strong>History</strong>
-        <div className="flex gap-2">
-          <button onClick={() => exportHistoryAsTxt(items)} className="text-sm underline">Export .txt</button>
-          <button onClick={() => exportHistoryAsCsv(items)} className="text-sm underline">Export .csv</button>
+    <div className="p-3 rounded-xl bg-white border border-gray-200 shadow-sm h-64 overflow-y-auto">
+      {/* Header */}
+      <div className="flex justify-between items-center mb-3">
+        <strong className="text-gray-800 text-sm">History</strong>
+
+        <div className="flex gap-3">
+          <button
+            onClick={() => exportHistoryAsTxt(items)}
+            className="text-sm text-blue-600 hover:text-blue-700 font-medium"
+          >
+            Export .txt
+          </button>
+          <button
+            onClick={() => exportHistoryAsCsv(items)}
+            className="text-sm text-blue-600 hover:text-blue-700 font-medium"
+          >
+            Export .csv
+          </button>
         </div>
       </div>
 
-      <ul>
-        {items.length === 0 && <li className="text-gray-500">No history yet</li>}
+      {/* List */}
+      <ul className="space-y-1">
+        {items.length === 0 && (
+          <li className="text-gray-400 text-sm text-center py-6">
+            No history yet
+          </li>
+        )}
+
         {items.slice().reverse().map((h, idx) => (
-          <li key={idx} className="py-1 cursor-pointer hover:underline" onClick={() => onSelect(h)}>
+          <li
+            key={idx}
+            onClick={() => onSelect(h)}
+            className="px-2 py-1.5 rounded-md text-sm text-gray-700 cursor-pointer
+                       hover:bg-blue-50 hover:text-blue-700 transition"
+          >
             {h}
           </li>
         ))}
@@ -23,4 +46,3 @@ export default function History({ items, onSelect }) {
     </div>
   )
 }
-

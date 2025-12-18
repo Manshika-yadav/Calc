@@ -21,16 +21,16 @@ export default function Calculator({ display, result, onButton, buttons, onCopy 
   return (
     <div>
       <input ref={inputRef} value={display} readOnly
-        className="w-full p-3 text-left text-xl rounded-lg bg-gray-50 dark:bg-neutral-400" />
+        className="w-full p-3 text-left text-xl rounded-lg bg-gray-50 dark:bg-gray-300" />
       <div className="text-right mt-2 text-gray-300 dark:text-gray-200">{result}</div>
 
       <div className="grid grid-cols-4 gap-3 mt-4">
         {buttons.map(btn => (
           <motion.button whileTap={{ scale: 0.96 }} key={btn} onClick={() => onButton(btn)}
             className={`p-3 rounded-xl text-lg font-medium shadow-sm transition-all
-              ${btn === '=' ? 'col-span-2 bg-gray-700 text-white' : ''}
-              ${btn === 'C' ? 'col-span-2 bg-red-400 text-white' : ''}
-              ${!['=','C'].includes(btn) ? 'bg-gray-200 dark:bg-neutral-600' : ''}`}>
+              ${btn === '=' ? 'col-span-2 bg-gray-400 text-white' : ''}
+              ${btn === 'C' ? 'col-span-2 bg-slate-400 text-white' : ''}
+              ${!['=','C'].includes(btn) ? 'bg-gray-200 dark:bg-slate-300' : ''}`}>
             {btn}
           </motion.button>
         ))}

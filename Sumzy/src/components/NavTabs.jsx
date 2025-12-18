@@ -9,7 +9,7 @@ export default function NavTabs({ active, setActive }) {
           key={t}
           onClick={() => setActive(t)}
           className={`px-3 py-1 rounded-md font-medium transition-all
-            ${active === t ? 'bg-gray-300 dark:bg-neutral-700' : 'bg-transparent'}`}
+            ${active === t ? 'bg-gray-300 dark:bg-slate-400' : 'bg-transparent'}`}
         >
           {t}
         </button>
