@@ -47,15 +47,15 @@ export default function UnitConverter(){
       </div>
 
       <div className="grid grid-cols-2 gap-3 items-center">
-        <input value={value} onChange={e=>setValue(e.target.value)} placeholder="value" className="p-2 rounded bg-gray-50" />
+        <input value={value} onChange={e=>setValue(e.target.value)} placeholder="value" className="p-2 rounded bg-gray-200" />
         <div></div>
-        <select value={fromUnit} onChange={e=>setFromUnit(e.target.value)} className="p-2 rounded">
+        <select value={fromUnit} onChange={e=>setFromUnit(e.target.value)} className="p-2 rounded bg-slate-200">
           {converters[mode].units.map(u=><option key={u} value={u}>{u}</option>)}
         </select>
-        <select value={toUnit} onChange={e=>setToUnit(e.target.value)} className="p-2 rounded">
+        <select value={toUnit} onChange={e=>setToUnit(e.target.value)} className="p-2 rounded bg-slate-200">
           {converters[mode].units.map(u=><option key={u} value={u}>{u}</option>)}
         </select>
-        <div className="col-span-2 py-2">Result: <strong>{convert()}</strong></div>
+        <div className="col-span-2 py-2 px-2 rounded bg-slate-200 ">Result: <strong>{convert()}</strong></div>
       </div>
     </div>
   )
