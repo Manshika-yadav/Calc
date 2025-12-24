@@ -9,7 +9,7 @@ export default function Calculator({ display, result, onButton, buttons, onCopy 
   useEffect(() => {
     const handleKey = (e) => {
       const k = e.key
-      if ((/^[0-9]$/.test(k)) || ['+','-','*','/','.','(',')'].includes(k)) onButton(k)
+      if ((/^[0-9]$/.test(k)) || ['+', '-', '*', '/', '.', '(', ')'].includes(k)) onButton(k)
       else if (k === 'Enter') { e.preventDefault(); onButton('=') }
       else if (k === 'Backspace') onButton('x')
       else if (k === 'Escape') onButton('C')
@@ -21,7 +21,20 @@ export default function Calculator({ display, result, onButton, buttons, onCopy 
   return (
     <div>
       <input ref={inputRef} value={display} readOnly
-        className="w-full p-3 text-left text-xl rounded-lg bg-gray-50 dark:bg-gray-300" />
+        className="
+              w-full
+              rounded-xl
+              border border-gray-300
+              px-4 py-3
+              text-lg
+              font-medium
+              bg-gray-50
+              outline-none
+              focus:border-gray-400
+              focus:ring-2
+              focus:ring-gray-200
+              transition-all
+     " />
       <div className="text-right mt-2 text-gray-300 dark:text-gray-200">{result}</div>
 
       <div className="grid grid-cols-4 gap-3 mt-4">
@@ -30,7 +43,7 @@ export default function Calculator({ display, result, onButton, buttons, onCopy 
             className={`p-3 rounded-xl text-lg font-medium shadow-sm transition-all
               ${btn === '=' ? 'col-span-2 bg-gray-400 text-white' : ''}
               ${btn === 'C' ? 'col-span-2 bg-slate-400 text-white' : ''}
-              ${!['=','C'].includes(btn) ? 'bg-gray-200 dark:bg-slate-300' : ''}`}>
+              ${!['=', 'C'].includes(btn) ? 'bg-gray-200 dark:bg-slate-300' : ''}`}>
             {btn}
           </motion.button>
         ))}

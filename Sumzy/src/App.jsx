@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import NavTabs from './components/NavTabs'
-import ThemeToggle from './components/ThemeToggle'
+
 import Calculator from './components/Calculator'
 import ScientificMode from './components/ScientificMode'
 import History from './components/History'
@@ -21,13 +21,19 @@ export default function App() {
   const [active, setActive] = useState('Calculator')
   const [display, setDisplay] = useState('')
   const [result, setResult] = useState('')
-  const [history, setHistory] = useState(() => JSON.parse(localStorage.getItem('calc_history') || '[]'))
-  const [darkMode, setDarkMode] = useState(false)
+  const [history, setHistory] = useState(() =>
+    JSON.parse(localStorage.getItem('calc_history') || '[]')
+  )
   const [showScientific, setShowScientific] = useState(false)
 
-  useEffect(() => localStorage.setItem('calc_history', JSON.stringify(history)), [history])
+  useEffect(() => {
+    localStorage.setItem('calc_history', JSON.stringify(history))
+  }, [history])
 
-  const pushHistory = useCallback((entry) => setHistory(h => [...h, entry].slice(-200)), [])
+  const pushHistory = useCallback(
+    (entry) => setHistory(h => [...h, entry].slice(-200)),
+    []
+  )
 
   const handleEvaluate = useCallback(() => {
     if (!display) return
@@ -46,18 +52,23 @@ export default function App() {
     if (btn === '=') { handleEvaluate(); return }
     if (btn === 'C') { setDisplay(''); setResult(''); return }
     if (btn === 'x') { setDisplay(d => d.slice(0, -1)); return }
+
     if (btn === '√') {
       try {
         const res = evaluateExpression(`Math.sqrt(${display || 0})`)
         setResult(String(res))
         setDisplay(String(res))
         pushHistory(`√(${display}) = ${res}`)
-      } catch { setResult('Error') }
+      } catch {
+        setResult('Error')
+      }
       return
     }
-    if (btn === 'π') { setDisplay(d => d + 'π'); return }
+    if (btn === 'π') {
+      setDisplay(d => d + 'π')
+      return
+    }
 
-    // prevent consecutive operators
     if (/[+\-*/.]$/.test(display) && /[+\-*/.]$/.test(btn)) return
 
     setDisplay(d => d + btn)
@@ -65,8 +76,12 @@ export default function App() {
 
   const copyResult = async () => {
     if (!result) return
-    try { await navigator.clipboard.writeText(String(result)); alert('Copied') } 
-    catch { alert('Copy failed') }
+    try {
+      await navigator.clipboard.writeText(String(result))
+      alert('Copied')
+    } catch {
+      alert('Copy failed')
+    }
   }
 
   const selectHistory = (entry) => {
@@ -75,26 +90,20 @@ export default function App() {
   }
 
   return (
-    <div className={`min-h-screen p-6 transition-all ${darkMode ? 'bg-neutral-900 text-white':'bg-gray-100 text-gray-900'}`}>
-      <div className="max-w-3xl mx-auto">
-        <header className="flex items-center justify-between mb-4">
-          <h1 className="text-2xl font-semibold">Sumzy</h1>
-          <div className="flex items-center gap-3">
-            <NavTabs active={active} setActive={setActive} />
-            <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
-          </div>
-        </header>
-
-        <main className={`p-6 rounded-2xl ${darkMode ? 'bg-neutral-800':'bg-white'} shadow-md`}>
+    <div className="min-h-screen bg-gray-100 text-gray-900">
+      <div className="max-w-4xl mx-auto px-4 py-6">
+        <NavTabs active={active} setActive={setActive} />
+        <main className="p-6 rounded-2xl bg-white shadow-md mt-4">
           {active === 'Calculator' && (
             <div>
-              <div className="flex items-center justify-between mb-3">
-               
-                <button onClick={() => setShowScientific(s => !s)} className="text-sm underline">
+              <div className="flex justify-end mb-3">
+                <button
+                  onClick={() => setShowScientific(s => !s)}
+                  className="text-sm underline"
+                >
                   {showScientific ? 'Basic' : 'Scientific'}
                 </button>
               </div>
-
               <Calculator
                 display={display}
                 result={result}
@@ -102,27 +111,24 @@ export default function App() {
                 buttons={initialButtons}
                 onCopy={copyResult}
               />
-
-              {showScientific && <ScientificMode onSelect={(s) => {
-                if (s === '^') setDisplay(d => d + '^')
-                else if (s === '√(') setDisplay(d => d + '√(')
-                else if (s === 'π') setDisplay(d => d + 'π')
-                else setDisplay(d => d + s)
-              }} />}
+              {showScientific && (
+                <ScientificMode
+                  onSelect={(s) => setDisplay(d => d + s)}
+                />
+              )}
             </div>
           )}
-
           {active === 'Converter' && <UnitConverter />}
           {active === 'Finance' && <FinanceTools />}
           {active === 'Graph' && <GraphPlotter />}
-          {active === 'History' && <History items={history} onSelect={selectHistory} />}
+          {active === 'History' && (
+            <History items={history} onSelect={selectHistory} />
+          )}
         </main>
-
-        <footer className="text-sm text-center mt-4 text-gray-500">
-          Built with React, Tailwind, Framer Motion. Voice input intentionally excluded.
+        <footer className="text-sm text-center mt-6 text-gray-500">
+          Built with React, Tailwind, Framer Motion.
         </footer>
       </div>
     </div>
   )
 }
-
