@@ -26,29 +26,32 @@ export default function FinanceTools(){
     <div className="space-y-4">
       <div className="p-3 rounded bg-gray-50">
         <h4 className="font-semibold">GST Calculator</h4>
-        <div className="grid grid-cols-2 gap-2 mt-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">
           <input value={amount} onChange={e=>setAmount(e.target.value)} placeholder="Amount" className="p-2 rounded px-2 bg-slate-200"/>
           <input value={gstRate} onChange={e=>setGstRate(e.target.value)} placeholder="GST %" className="p-2 rounded bg-slate-200"/>
-          <div className="col-span-2">Tax: <strong>{gst.tax.toFixed(2)}</strong> | Total: <strong>{gst.total.toFixed(2)}</strong></div>
+         <div className="col-span-1 sm:col-span-2 break-all">
+           Tax: <strong>{gst.tax.toFixed(2)}</strong> | Total: <strong>{gst.total.toFixed(2)}</strong></div>
         </div>
       </div>
 
       <div className="p-3 rounded bg-gray-50">
         <h4 className="font-semibold">Discount Calculator</h4>
-        <div className="grid grid-cols-2 gap-2 mt-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">
           <input value={price} onChange={e=>setPrice(e.target.value)} placeholder="Original Price" className="p-2 rounded bg-slate-200"/>
           <input value={disc} onChange={e=>setDisc(e.target.value)} placeholder="Discount %" className="p-2 rounded bg-slate-200"/>
-          <div className="col-span-2">Discounted Price: <strong>{discount}</strong></div>
+          <div className="col-span-1 sm:col-span-2 break-all">
+            Discounted Price: <strong>{discount}</strong></div>
         </div>
       </div>
 
       <div className="p-3 rounded bg-gray-50">
         <h4 className="font-semibold">EMI Calculator</h4>
-        <div className="grid grid-cols-2 gap-2 mt-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">
           <input value={principal} onChange={e=>setPrincipal(e.target.value)} placeholder="Principal" className="p-2 rounded bg-slate-200"/>
           <input value={annualRate} onChange={e=>setAnnualRate(e.target.value)} placeholder="Annual Rate (%)" className="p-2 rounded bg-slate-200"/>
           <input value={tenureMonths} onChange={e=>setTenureMonths(e.target.value)} placeholder="Tenure (months)" className="p-2 rounded bg-slate-200"/>
-          <div className="col-span-2">EMI: <strong>{emi.emi}</strong> | Total: <strong>{emi.total}</strong> | Interest: <strong>{emi.interest}</strong></div>
+          <div className="col-span-1 sm:col-span-2 break-all">
+            EMI: <strong>{emi.emi}</strong> | Total: <strong>{emi.total}</strong> | Interest: <strong>{emi.interest}</strong></div>
         </div>
       </div>
     </div>

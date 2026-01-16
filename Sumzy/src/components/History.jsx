@@ -3,12 +3,10 @@ import { exportHistoryAsTxt, exportHistoryAsCsv } from '../utils/exportHelpers'
 
 export default function History({ items, onSelect }) {
   return (
-    <div className="p-3 rounded-xl bg-white border border-gray-200 shadow-sm h-64 overflow-y-auto">
-      {/* Header */}
+   <div className="p-3 rounded-xl bg-white border border-gray-200 shadow-sm h-64 overflow-y-auto">
       <div className="flex justify-between items-center mb-3">
         <strong className="text-gray-800 text-sm">History</strong>
-
-        <div className="flex gap-3">
+        <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
           <button
             onClick={() => exportHistoryAsTxt(items)}
             className="text-sm text-blue-600 hover:text-blue-700 font-medium"
@@ -23,8 +21,6 @@ export default function History({ items, onSelect }) {
           </button>
         </div>
       </div>
-
-      {/* List */}
       <ul className="space-y-1">
         {items.length === 0 && (
           <li className="text-gray-400 text-sm text-center py-6">

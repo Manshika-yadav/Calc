@@ -40,13 +40,15 @@ export default function UnitConverter(){
 
   return (
     <div>
-      <div className="flex gap-2 mb-3">
+      <div className="flex flex-wrap gap-2 mb-3">
+
         {['length','weight','temp'].map(m => (
           <button key={m} onClick={()=>setMode(m)} className={`px-3 py-1 rounded ${mode===m?'bg-gray-300':''}`}>{m.charAt(0).toUpperCase()+m.slice(1)}</button>
         ))}
       </div>
 
-      <div className="grid grid-cols-2 gap-3 items-center">
+     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 items-center">
+
         <input value={value} onChange={e=>setValue(e.target.value)} placeholder="value" className="p-2 rounded bg-gray-200" />
         <div></div>
         <select value={fromUnit} onChange={e=>setFromUnit(e.target.value)} className="p-2 rounded bg-slate-200">
@@ -55,7 +57,8 @@ export default function UnitConverter(){
         <select value={toUnit} onChange={e=>setToUnit(e.target.value)} className="p-2 rounded bg-slate-200">
           {converters[mode].units.map(u=><option key={u} value={u}>{u}</option>)}
         </select>
-        <div className="col-span-2 py-2 px-2 rounded bg-slate-200 ">Result: <strong>{convert()}</strong></div>
+        <div className="col-span-1 sm:col-span-2 py-2 px-2 rounded bg-slate-200 break-all">
+            Result: <strong>{convert()}</strong></div>
       </div>
     </div>
   )
